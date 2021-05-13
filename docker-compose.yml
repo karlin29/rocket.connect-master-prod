@@ -39,12 +39,12 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.rocketconnect.rule=Host(`{{ cookiecutter.domain }}`)"
       - "traefik.http.services.rocketconnect.loadbalancer.server.port=5000"
-      {%- if cookiecutter.use_letsencrypt == 'y' %}    
+      - if cookiecutter.use_letsencrypt == 'y'    
       - "traefik.http.routers.rocketconnect.entrypoints=websecure"
       - "traefik.http.routers.rocketconnect.tls.certresolver=le"
-      {%- else %}
+      - else
       - "traefik.http.routers.rocketconnect.entrypoints=web"
-      {%- endif %}
+      - endif
     deploy:
       replicas: 2
       labels:
